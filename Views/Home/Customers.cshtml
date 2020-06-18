@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Login/Register";
+}
+@model CommerceWrapper
+<div class="container text-center">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Created Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(User user in Model.AllUsers)
+            {
+                <tr>
+                    <td>@user.FirstName @user.LastName</td>
+                    <td>@user.CreatedAt.Date.ToString("MMMM dd yyyy")</td>
+                    @if(@Model.CurrentUser.IsAdmin == true || @Model.CurrentUser.UserId == @user.UserId)
+                    {
+                        <td>
+                            <form asp-action="IndividualUser" method="POST">
+                                <input type="hidden" name="ThingsShown" value="@user.UserId">
+                                <button class="btn btn-primary">View Orders</button>
+                            </form>
+                            <form asp-action="DeleteUser" asp-controller="Home" method="POST">
+                                <input type="hidden" name="ThingsShown" value="@user.UserId">
+                                <button class="btn btn-danger">Delete User</button>
+                            </form>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <button class="btn btn-primary">View Orders</button>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

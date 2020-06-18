@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "Login/Register";
+}
+@model CommerceWrapper
+<div class="container text-center">
+    <h1>@Model.CurrentUser.FirstName's Order History:</h1>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Purchase</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Order order in Model.CurrentUser.Orders)
+            {
+                <tr>
+                    <td>@order.CreatedAt.Date.ToString("MMMM dd yyyy")</td>
+                    <td>@order.User.FirstName @order.User.LastName ordered @order.Quantity @order.Product.ItemName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

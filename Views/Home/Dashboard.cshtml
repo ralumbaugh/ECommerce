@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Login/Register";
+}
+@model CommerceWrapper
+<div class="container">
+    <div class="row">
+        <div class="col-8 text-center">
+            @foreach(Product product in Model.AllProducts)
+            {
+                <div>
+                    <img src="@product.ImageURL" alt="@product.ItemName" width="50px">
+                    <p>@product.ItemName</p>
+                    <p>(@product.Quantity left)</p>
+                </div>
+            }
+            <a href="/products">Show more...</a>
+        </div>
+    </div>
+    <div class="container text-center">
+        <div class="text-left">
+            <h5>Recent Orders</h5>
+            <ul>
+                @foreach(Order order in Model.AllOrders)
+                {
+                    <p>@order.User.FirstName purchased @order.Quantity @order.Product.ItemName...</p>
+                }
+            </ul>
+            <a href="/orders">Show all orders...</a>
+        </div>
+        <div class="text-left">
+            <h5>New Customers</h5>
+            <ul>
+                @foreach(User user in Model.AllUsers)
+                {
+                    <p>@user.FirstName @user.LastName joined the store.</p>
+                }
+            </ul>
+            <a href="/customers">Show all customers...</a>
+        </div>
+    </div>
+</div>

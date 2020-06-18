@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Login/Register";
+}
+@model CommerceWrapper
+<div class="container text-center">
+    <form asp-action="NewOrder" asp-controller="Home" method="post">
+        <h3>Add a new order:</h3>
+        <span asp-validation-for="CurrentOrder.Quantity"></span>
+        <div class="form-group d-flex justify-content-between">
+            <label asp-for="CurrentOrder.Quantity"></label>
+            <input asp-for="CurrentOrder.Quantity">
+        </div>
+        <span asp-validation-for="CurrentOrder.ProductId"></span>
+        <div class="form-group d-flex justify-content-between">
+            <label asp-for="CurrentOrder.ProductId"></label>
+            <select asp-for="CurrentOrder.ProductId">
+                @foreach(Product product in @Model.AllProducts)
+                {
+                    <option value="@product.ProductId">@product.ItemName</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Order</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Purchase</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Order order in @Model.AllOrders)
+            {
+                <tr>
+                    <td>@order.CreatedAt.Date.ToString("MMMM dd yyyy")</td>
+                    <td>@order.User.FirstName @order.User.LastName ordered @order.Quantity @order.Product.ItemName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

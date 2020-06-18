@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Login/Register";
+}
+@model CommerceWrapper
+<div class="container row">
+        <div class="col-3">
+            <h4>Add a new product</h4>
+            <form asp-action="NewProduct" asp-controller="Home" method="POST">
+                <span class="text-danger" asp-validation-for="CurrentProduct.ItemName"></span>
+                <div class="form-group d-flex flex-column justify-content-between">
+                    <label asp-for="CurrentProduct.ItemName">Name: </label>
+                    <input asp-for="CurrentProduct.ItemName">
+                </div>
+                <span class="text-danger" asp-validation-for="CurrentProduct.ImageURL"></span>
+                <div class="form-group d-flex flex-column justify-content-between">
+                    <label asp-for="CurrentProduct.ImageURL">Image (url): </label>
+                    <input asp-for="CurrentProduct.ImageURL">
+                </div>
+                <span class="text-danger" asp-validation-for="CurrentProduct.Price"></span>
+                <div class="form-group d-flex flex-column justify-content-between">
+                    <label asp-for="CurrentProduct.Price">Price: </label>
+                    <input asp-for="CurrentProduct.Price">
+                </div>
+                <span class="text-danger" asp-validation-for="CurrentProduct.Description"></span>
+                <div class="form-group d-flex flex-column justify-content-between">
+                    <label asp-for="CurrentProduct.Description">Description: </label>
+                    <input asp-for="CurrentProduct.Description">
+                </div>
+                <span class="text-danger" asp-validation-for="CurrentProduct.Quantity"></span>
+                <div class="form-group d-flex flex-column justify-content-between">
+                    <label asp-for="CurrentProduct.Quantity">Initial Quantity: </label>
+                    <input asp-for="CurrentProduct.Quantity">
+                </div>
+                <button type="Submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+        <div class="col-8 text-center">
+            <div class="row">
+                @foreach(Product product in Model.AllProducts)
+                {
+                    <div>
+                        <img src="@product.ImageURL" alt="@product.ItemName" width="50px">
+                        <p>@product.ItemName</p>
+                        <p>(@product.Quantity left)</p>
+                    </div>
+                }
+            </div>
+        <form asp-action="SeeMoreProducts" asp-controller="Home" method="POST">
+            <input type="hidden" asp-for="ThingsShown">
+            <button type="Submit" class="btn btn-secondary">See More Products</button>
+        </form>
+      </div>
+    </div>
+</div>
